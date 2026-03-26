@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Modern E-Learning app with personalized trainer assignment">
+    <title>EduLearn | Personalized Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <nav id="navbar" class="hidden glass-panel">
+        <div class="logo"><i class="fas fa-graduation-cap"></i> EduLearn</div>
+        <div class="user-info">
+            <span id="nav-user-name"></span>
+            <button id="logout-btn" class="btn-secondary"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+    </nav>
+
+    <main id="app-container">
+        <!-- Auth View -->
+        <section id="auth-view" class="view active">
+            <div class="auth-container glass-panel">
+                <div class="auth-tabs">
+                    <button class="active" id="tab-login" onclick="switchAuthTab('login')">Login</button>
+                    <button id="tab-signup" onclick="switchAuthTab('signup')">Sign Up</button>
+                </div>
+                
+                <form id="login-form">
+                    <h2>Welcome Back</h2>
+                    <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 1.5rem; color: white;">
+                        <label style="cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"><input type="radio" name="loginRole" value="student" checked style="width: auto; margin:0;"> Student</label>
+                        <label style="cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"><input type="radio" name="loginRole" value="trainer" style="width: auto; margin:0;"> Trainer</label>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="login-email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="login-password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn-primary w-100">Login</button>
+                </form>
+
+                <form id="signup-form" class="hidden">
+                    <h2>Create Account</h2>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="signup-name" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="signup-email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signup-password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn-primary w-100">Sign Up</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Dashboard View -->
+        <section id="dashboard-view" class="view hidden">
+            <div class="dashboard-header">
+                <h1>Dashboard</h1>
+                <div id="trainer-info-banner" class="glass-panel trainer-banner">
+                    <!-- Trainer info will be injected here -->
+                </div>
+            </div>
+
+            <div id="aptitude-prompt" class="glass-panel text-center hidden">
+                <h2>Welcome to EduLearn!</h2>
+                <p>Before you begin your journey, please take a quick aptitude test so we can assign you the perfect trainer.</p>
+                <button onclick="navigateTo('aptitude-view')" class="btn-primary mt-4">Take Aptitude Test</button>
+            </div>
+
+            <div id="courses-container" class="courses-grid hidden">
+                <!-- Courses will be injected here -->
+            </div>
+        </section>
+
+        <!-- Aptitude View -->
+        <section id="aptitude-view" class="view hidden">
+            <div class="glass-panel container-sm">
+                <h2>Aptitude Test</h2>
+                <p class="subtitle mb-4">Answer 5 questions to gauge your level.</p>
+                
+                <form id="aptitude-form">
+                    <div class="question-block">
+                        <p>1. What is HTML?</p>
+                        <select required name="q1" class="custom-select">
+                            <option value="">Select answer...</option>
+                            <option value="10">A markup language</option>
+                            <option value="0">A programming language</option>
+                        </select>
+                    </div>
+                    <div class="question-block">
+                        <p>2. What is 5 + '5' in JavaScript?</p>
+                        <select required name="q2" class="custom-select">
+                            <option value="">Select answer...</option>
+                            <option value="20">55 (String)</option>
+                            <option value="0">10 (Number)</option>
+                        </select>
+                    </div>
+                    <div class="question-block">
+                        <p>3. What does CSS stand for?</p>
+                        <select required name="q3" class="custom-select">
+                            <option value="">Select answer...</option>
+                            <option value="20">Cascading Style Sheets</option>
+                            <option value="0">Computer Style Sheets</option>
+                        </select>
+                    </div>
+                    <div class="question-block">
+                        <p>4. Which is a JavaScript framework?</p>
+                        <select required name="q4" class="custom-select">
+                            <option value="">Select answer...</option>
+                            <option value="30">React</option>
+                            <option value="0">Django</option>
+                        </select>
+                    </div>
+                    <div class="question-block">
+                        <p>5. What is the purpose of a database?</p>
+                        <select required name="q5" class="custom-select">
+                            <option value="">Select answer...</option>
+                            <option value="20">Store data</option>
+                            <option value="0">Style websites</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary mt-4 w-100">Submit Test</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Course View -->
+        <section id="course-view" class="view hidden">
+            <div class="glass-panel course-detail">
+                <button onclick="navigateTo('dashboard-view')" class="btn-icon"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+                <h1 id="course-title" class="mt-4">Course Name</h1>
+                <p id="course-desc">Course description...</p>
+                
+                <div class="course-actions mt-3">
+                    <button onclick="window.open('https://meet.google.com', '_blank')" class="btn-primary meet-btn"><i class="fas fa-video"></i> Join Google Meet</button>
+                </div>
+
+                <div class="progress-section mt-4 mb-4">
+                    <h3>Your Progress</h3>
+                    <div class="progress-bar">
+                        <div id="course-progress" class="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="modules-grid mt-4">
+                    <div class="module-card glass-panel text-center">
+                        <h3 style="color: var(--secondary)"><i class="fas fa-file-alt"></i> Weekly Quiz</h3>
+                        <p class="mt-2 mb-2">Test your knowledge.</p>
+                        <span id="quiz-status" class="status-badge">Pending</span>
+                        <button id="btn-take-quiz" class="btn-secondary w-100 mt-4" onclick="navigateTo('quiz-view')">Take Quiz</button>
+                    </div>
+                    
+                    <div class="module-card glass-panel text-center">
+                        <h3 style="color: var(--primary)"><i class="fas fa-tasks"></i> Weekly Assignment</h3>
+                        <p class="mt-2 mb-2">Submit your task.</p>
+                        <span id="assignment-status" class="status-badge">Pending</span>
+                        <button id="btn-do-assignment" class="btn-secondary w-100 mt-4" onclick="navigateTo('assignment-view')">Submit Assignment</button>
+                    </div>
+                </div>
+
+                <div id="certificate-action" class="mt-4 p-4 text-center hidden glass-panel" style="background: rgba(0, 184, 148, 0.1); border-color: rgba(0, 184, 148, 0.3);">
+                    <h3>🎉 Congratulations! You completed the course.</h3>
+                    <button onclick="generateCertificate()" class="btn-success mt-3"><i class="fas fa-award"></i> Download Certificate</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz View -->
+        <section id="quiz-view" class="view hidden">
+            <div class="glass-panel container-sm">
+                <button onclick="navigateTo('course-view')" class="btn-icon mb-4"><i class="fas fa-arrow-left"></i> Back to Course</button>
+                <h2>Weekly Quiz</h2>
+                <form id="quiz-form" class="mt-4">
+                    <div class="question-block">
+                        <p>1. What is the output of typeof null?</p>
+                        <select required name="quiz1" class="custom-select">
+                            <option value="">Select answer...</option>
+                            <option value="1">Object</option>
+                            <option value="0">Null</option>
+                        </select>
+                    </div>
+                    <div class="question-block">
+                        <p>2. Which keyword is used to declare a constant in JS?</p>
+                        <select required name="quiz2" class="custom-select">
+                            <option value="">Select answer...</option>
+                            <option value="1">const</option>
+                            <option value="0">let</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary mt-4 w-100">Submit Quiz</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Assignment View -->
+        <section id="assignment-view" class="view hidden">
+            <div class="glass-panel container-sm">
+                <button onclick="navigateTo('course-view')" class="btn-icon mb-4"><i class="fas fa-arrow-left"></i> Back to Course</button>
+                <h2>Submit Assignment</h2>
+                <p class="mb-4">Describe how you implemented the project this week.</p>
+                <form id="assignment-form">
+                    <textarea required placeholder="Write your submission here..." class="custom-textarea" rows="6"></textarea>
+                    <button type="submit" class="btn-primary mt-4 w-100">Submit Assignment</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Certificate View -->
+        <section id="certificate-view" class="view hidden">
+            <div class="glass-panel container-lg certificate-container text-center" style="background: #fff;">
+                <button onclick="navigateTo('dashboard-view')" class="btn-icon mb-4" style="color: #666;"><i class="fas fa-arrow-left"></i> Dashboard</button>
+                <div id="certificate-content" class="certificate-body">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Seal_of_the_United_States_Department_of_Education.svg/1024px-Seal_of_the_United_States_Department_of_Education.svg.png" width="90" alt="logo" class="certificate-logo">
+                    <h1 style="color: #111; margin-top: 1rem;">Certificate of Completion</h1>
+                    <p style="color: #666;">This is to certify that</p>
+                    <h2 id="cert-student-name" class="cert-name">Student Name</h2>
+                    <p style="color: #666;">has successfully completed the course</p>
+                    <h3 id="cert-course-name" class="cert-course">Full Stack Web Development</h3>
+                    <p class="cert-date">Date: <span id="cert-date-span"></span></p>
+                </div>
+                <button onclick="window.print()" class="btn-primary mt-4"><i class="fas fa-print"></i> Print / Save PDF</button>
+            </div>
+        </section>
+
+        <!-- Trainer Dashboard View -->
+        <section id="trainer-dashboard-view" class="view hidden">
+            <div class="dashboard-header mb-4">
+                <h1>Trainer Dashboard</h1>
+            </div>
+            
+            <div class="glass-panel text-center mb-4" style="background: linear-gradient(90deg, rgba(108, 92, 231, 0.2), rgba(0, 206, 201, 0.2)); border-left: 4px solid var(--primary);">
+                <h2>Welcome, <span id="trainer-dashboard-name"></span>!</h2>
+                <p class="mt-2 text-white" style="color: white; opacity: 0.9;">You are assigned to guide the following students.</p>
+            </div>
+
+            <h3 class="mb-4">Your Assigned Students</h3>
+            <div id="trainer-students-container" class="courses-grid mt-2">
+                <!-- Students will be injected here -->
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
